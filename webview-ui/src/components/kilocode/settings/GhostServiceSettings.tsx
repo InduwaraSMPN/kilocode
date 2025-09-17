@@ -161,9 +161,11 @@ export const GhostServiceSettingsView = ({
 						<div className="text-vscode-descriptionForeground text-sm mt-1">
 							<Trans
 								i18nKey="kilocode:ghost.settings.enableQuickInlineTaskKeybinding.description"
-								values={{ keybinding: keybindings["kilo-code.ghost.promptCodeSuggestion"] || "" }}
+								values={{ quickKeybinding: keybindings["kilo-code.ghost.promptCodeSuggestion"] || "" }}
 								components={{
-									DocsLink: <KeybindingDocsLink commandId="kilo-code.ghost.promptCodeSuggestion" />,
+									QuickDocsLink: (
+										<KeybindingDocsLink commandId="kilo-code.ghost.promptCodeSuggestion" />
+									),
 								}}
 							/>
 						</div>
@@ -180,10 +182,12 @@ export const GhostServiceSettingsView = ({
 							<Trans
 								i18nKey="kilocode:ghost.settings.enableSmartInlineTaskKeybinding.description"
 								values={{
-									keybinding: keybindings["kilo-code.ghost.generateSuggestions"] || "",
+									smartKeybinding: keybindings["kilo-code.ghost.generateSuggestions"] || "",
 								}}
 								components={{
-									DocsLink: <KeybindingDocsLink commandId="kilo-code.ghost.generateSuggestions" />,
+									SmartDocsLink: (
+										<KeybindingDocsLink commandId="kilo-code.ghost.generateSuggestions" />
+									),
 								}}
 							/>
 						</div>
