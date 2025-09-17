@@ -1,5 +1,5 @@
 //kilocode_change - new file
-import { HTMLAttributes } from "react"
+import { HTMLAttributes, PropsWithChildren } from "react"
 import { useAppTranslation } from "@/i18n/TranslationContext"
 import { Trans } from "react-i18next"
 import { Bot, Webhook, Keyboard, SquareFunction } from "lucide-react"
@@ -80,10 +80,6 @@ export const GhostServiceSettingsView = ({
 		})
 	}
 
-	const openGlobalKeybindings = (filter?: string) => {
-		vscode.postMessage({ type: "openGlobalKeybindings", text: filter })
-	}
-
 	return (
 		<div className={cn("flex flex-col", className)} {...props}>
 			<SectionHeader>
@@ -150,14 +146,7 @@ export const GhostServiceSettingsView = ({
 					<div className="text-vscode-descriptionForeground text-sm mb-3">
 						<Trans
 							i18nKey="kilocode:ghost.settings.keybindingDescription"
-							components={{
-								DocsLink: (
-									<a
-										href="#"
-										onClick={() => openGlobalKeybindings()}
-										className="text-vscode-textLink hover:text-vscode-textLinkActive cursor-pointer"></a>
-								),
-							}}
+							components={{ DocsLink: <KeybindingDocsLink /> }}
 						/>
 					</div>
 
@@ -174,14 +163,7 @@ export const GhostServiceSettingsView = ({
 								i18nKey="kilocode:ghost.settings.enableQuickInlineTaskKeybinding.description"
 								values={{ keybinding: keybindings["kilo-code.ghost.promptCodeSuggestion"] || "" }}
 								components={{
-									DocsLink: (
-										<a
-											href="#"
-											onClick={() =>
-												openGlobalKeybindings("kilo-code.ghost.promptCodeSuggestion")
-											}
-											className="text-vscode-textLink hover:text-vscode-textLinkActive cursor-pointer"></a>
-									),
+									DocsLink: <KeybindingDocsLink commandId="kilo-code.ghost.promptCodeSuggestion" />,
 								}}
 							/>
 						</div>
@@ -201,12 +183,7 @@ export const GhostServiceSettingsView = ({
 									keybinding: keybindings["kilo-code.ghost.generateSuggestions"] || "",
 								}}
 								components={{
-									DocsLink: (
-										<a
-											href="#"
-											onClick={() => openGlobalKeybindings("kilo-code.ghost.generateSuggestions")}
-											className="text-vscode-textLink hover:text-vscode-textLinkActive cursor-pointer"></a>
-									),
+									DocsLink: <KeybindingDocsLink commandId="kilo-code.ghost.generateSuggestions" />,
 								}}
 							/>
 						</div>
@@ -274,5 +251,19 @@ export const GhostServiceSettingsView = ({
 				</div>
 			</Section>
 		</div>
+	)
+}
+
+const KeybindingDocsLink = ({ children, commandId }: PropsWithChildren<{ commandId?: string }>) => {
+	const openGlobalKeybindings = (filter?: string) => {
+		vscode.postMessage({ type: "openGlobalKeybindings", text: filter })
+	}
+	return (
+		<a
+			href="#"
+			onClick={() => openGlobalKeybindings(commandId)}
+			className="text-[var(--vscode-list-highlightForeground)] hover:underline cursor-pointer">
+			{children}
+		</a>
 	)
 }

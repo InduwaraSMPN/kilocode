@@ -1,3 +1,4 @@
+// kilocode_change - new file
 import { useState, useEffect } from "react"
 import { vscode } from "@src/utils/vscode"
 

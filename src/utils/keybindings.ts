@@ -1,3 +1,4 @@
+// kilocode_change - new file
 import packageJson from "../package.json"
 import { readUserConfigFile } from "./vscode-config"
 
@@ -20,7 +21,7 @@ const MAC_MODIFIERS: Record<string, string> = {
 }
 
 const WIN_LINUX_MODIFIERS: Record<string, string> = {
-	cmd: "Win", // Fixed: cmd should map to Win key, not Ctrl
+	cmd: "Win",
 	meta: "Win",
 	ctrl: "Ctrl",
 	alt: "Alt",
@@ -67,13 +68,11 @@ export async function getKeybindingForCommand(commandId: string): Promise<string
 		const userKeybindings = await readUserConfigFile("keybindings.json")
 		const userBinding = findFirstBindingForCommand(userKeybindings as KeybindingEntry[], commandId)
 
-		// Early return for user overrides (no need to get defaults if user has override)
 		if (userBinding?.key) {
 			const rawKey = userBinding.key.trim()
 			if (rawKey) return prettyPrintKey(rawKey, process.platform)
 		}
 
-		// Only get default if no user override exists
 		return getDefaultKeybindingForCommand(commandId)
 	} catch (error) {
 		return undefined

@@ -353,10 +353,10 @@ export async function activate(context: vscode.ExtensionContext) {
 	const kilocodeWrapperProperties = getKiloCodeWrapperProperties()
 	if (!kilocodeWrapperProperties.kiloCodeWrapped) {
 		registerGhostProvider(context, provider)
+		registerWelcomeService(context)
 	}
 	// kilocode_change end
 	registerCommitMessageProvider(context, outputChannel) // kilocode_change
-	registerWelcomeService(context) // kilocode_change
 	registerCodeActions(context)
 	registerTerminalActions(context)
 
