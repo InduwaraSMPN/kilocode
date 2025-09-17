@@ -43,7 +43,7 @@ import {
 } from "./activate"
 import { initializeI18n } from "./i18n"
 import { registerGhostProvider } from "./services/ghost" // kilocode_change
-import { TerminalWelcomeService } from "./services/terminal-welcome/TerminalWelcomeService" // kilocode_change
+import { registerWelcomeService } from "./services/terminal-welcome" // kilocode_change
 import { getKiloCodeWrapperProperties } from "./core/kilocode/wrapper" // kilocode_change
 
 /**
@@ -356,6 +356,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	}
 	// kilocode_change end
 	registerCommitMessageProvider(context, outputChannel) // kilocode_change
+	registerWelcomeService(context) // kilocode_change
 	registerCodeActions(context)
 	registerTerminalActions(context)
 
